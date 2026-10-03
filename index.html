@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tin học 10 – Chủ đề F: Python</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f5f7fb;--c:#fff;--t:#1b2433;--m:#5d6b82;--p:#2563eb;--ok:#16a34a;--no:#dc2626;--b:#d9e0ec;--code:#0f172a}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1420;--c:#172033;--t:#e8edf7;--m:#9aa8c2;--p:#5b8def;--b:#2b3752}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:19px;margin:0 0 8px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:16px;margin:12px 0}
+button,select,input{font:inherit}
+button{background:var(--p);color:#fff;border:0;border-radius:8px;padding:9px 16px;cursor:pointer}
+button.g{background:transparent;color:var(--p);border:1px solid var(--p)}button:disabled{opacity:.45;cursor:default}
+input,select{padding:8px;border:1px solid var(--b);border-radius:8px;background:var(--c);color:var(--t);max-width:100%}
+input[type=text]{width:100%;text-transform:uppercase}
+pre{background:var(--code);color:#e2e8f0;padding:12px;border-radius:8px;overflow-x:auto;margin:8px 0}
+pre .h{background:#2563eb;display:block;margin:0 -12px;padding:0 12px}
+.bar{height:8px;background:var(--b);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.m{color:var(--m);font-size:14px}
+.ls{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--b)}.ls:first-child{border:0}
+.q{border-top:1px solid var(--b);padding:12px 0}.q label{display:block;padding:4px 0;cursor:pointer}
+.ok{color:var(--ok);font-weight:600}.no{color:var(--no);font-weight:600}
+.cell{display:inline-block;min-width:38px;text-align:center;padding:6px;border:2px solid var(--b);border-radius:6px;margin:2px}.cell.on{border-color:var(--p);background:var(--p);color:#fff}
+.sim{border:2px dashed var(--p);border-radius:10px;padding:12px;margin:10px 0}
+.out{background:var(--code);color:#86efac;padding:8px;border-radius:6px;min-height:34px;font-family:monospace;white-space:pre-wrap}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid var(--b);padding:6px;text-align:left}
+</style></head><body><main id="app"></main>
+<script>
+// ===== Câu hỏi: O=1 đáp án, M=nhiều đáp án, F=điền chỗ trống (menu), T=4 phát biểu Đ/S =====
+const O=(q,o,a,g)=>({t:'o',q,o,a,g}),M=(q,o,a,g)=>({t:'m',q,o,a,g}),F=(q,s,g)=>({t:'f',q,s,g}),T=(q,s,g)=>({t:'t',q,s,g});
+// ===== Nội dung 11 bài =====
+const L=[
+{id:16,n:'Ngôn ngữ lập trình bậc cao và Python',x:[{h:'Ngôn ngữ bậc cao & chương trình dịch',p:'Máy tính chỉ hiểu <b>ngôn ngữ máy</b> (0/1). Ngôn ngữ bậc cao (Python, C++...) gần ngôn ngữ tự nhiên hơn, được <b>chương trình dịch</b> chuyển sang ngôn ngữ máy. Python dùng <b>trình thông dịch</b>: dịch và chạy từng câu lệnh.',c:'print("Xin chào Python!")',q:O('Trình thông dịch Python làm gì?',['Dịch và thực hiện từng câu lệnh','Chỉ kiểm tra lỗi chính tả','Chuyển ảnh sang văn bản','Tăng tốc độ CPU'],0,'Chương trình dịch')}],
+ q:[O('Ngôn ngữ nào máy tính hiểu trực tiếp?',['Python','Ngôn ngữ máy','Tiếng Anh','Pascal'],1,'Ngôn ngữ máy'),M('Chọn các ngôn ngữ lập trình bậc cao:',['Python','Ngôn ngữ máy','C++','Mã nhị phân'],[0,2],'Ngôn ngữ bậc cao'),F('Python dùng chương trình {0} để dịch và chạy từng lệnh.',[[['biên dịch toàn bộ','thông dịch','nén ảnh'],1]],'Chương trình dịch'),T('Tình huống: Nam viết print("Hi") rồi chạy ngay để thấy kết quả.',[['Nam đang dùng ngôn ngữ bậc cao',1],['print là một lệnh của Python',1],['Máy hiểu trực tiếp dòng chữ Nam viết',0],['Python cho phép chạy thử từng lệnh',1]],'Ngôn ngữ bậc cao')]},
+{id:17,n:'Phép toán, biểu thức và lệnh gán',x:[{h:'Phép toán số học và lệnh gán',p:'Phép toán: <b>+ − * /</b>, chia nguyên <b>//</b>, chia dư <b>%</b>, lũy thừa <b>**</b>. Lệnh gán <b>biến = biểu thức</b> tính giá trị rồi lưu vào biến.',c:'a = 17\nprint(a // 5, a % 5, a ** 2)   # 3 2 289',q:O('Giá trị của 17 % 5 là?',['3','2','3.4','12'],1,'Phép toán')}],
+ q:[O('7 // 2 cho kết quả:',['3.5','3','4','1'],1,'Phép toán'),M('Biểu thức nào có kết quả 4?',['8 // 2','9 % 5','2 ** 2','10 % 4'],[0,1,2],'Phép toán'),F('Lệnh {0} dùng để gán giá trị 5 cho biến x.',[[['x == 5','x = 5','5 = x'],1]],'Lệnh gán'),T('Tình huống: Mua 3 vở giá 8 nghìn, có 50 nghìn. a=50-3*8',[['a có giá trị 26',1],['3*8 được tính trước phép trừ',1],['Dấu = là so sánh bằng',0],['a % 5 bằng 1',1]],'Biểu thức')]},
+{id:18,n:'Các lệnh vào ra đơn giản',x:[{h:'input() và print()',p:'<b>input()</b> nhận dữ liệu từ bàn phím, luôn trả về <b>xâu (str)</b>; muốn tính toán phải đổi kiểu bằng <b>int()</b>/<b>float()</b>. <b>print()</b> đưa kết quả ra màn hình.',c:'a = int(input("Nhập a: "))\nprint("Bình phương:", a * a)',q:O('input() trả về kiểu dữ liệu nào?',['int','float','str','bool'],2,'input')}],
+ q:[O('Để nhập số nguyên ta viết:',['a = input()','a = int(input())','a = print()','a = str(5)'],1,'Vào ra'),M('Lệnh nào đưa dữ liệu ra màn hình?',['print(5)','input()','print("a")','int(3)'],[0,2],'Vào ra'),F('Dữ liệu từ input() có kiểu {0} nếu chưa ép kiểu.',[[['số nguyên','xâu','logic'],1]],'input'),T('Tình huống: a=input() nhập 3, b=input() nhập 4, print(a+b)',[['Kết quả in ra 34',1],['Kết quả in ra 7',0],['a và b là xâu',1],['Cần int() để cộng thành 7',1]],'input')]},
+{id:19,n:'Câu lệnh rẽ nhánh if',sim:'if',x:[{h:'if – elif – else',p:'Cấu trúc rẽ nhánh chọn việc làm theo <b>điều kiện</b>. Thụt lề đầu dòng và dấu <b>:</b> là bắt buộc. Hãy thử mô phỏng bên dưới: nhập n rồi nhấn "Bước tiếp" để thấy chương trình đi nhánh nào.',c:'n = 7\nif n % 2 == 0:\n    print("Chẵn")\nelse:\n    print("Lẻ")',q:O('Khi điều kiện của if sai và có else, chương trình:',['Bỏ qua cả hai','Thực hiện nhánh else','Báo lỗi','Lặp lại if'],1,'Rẽ nhánh')}],
+ q:[O('Phép so sánh bằng trong Python là:',['=','==','=>','!='],1,'Rẽ nhánh'),M('Cú pháp đúng của if gồm:',['Dấu : sau điều kiện','Thụt lề khối lệnh','Dấu ; cuối dòng','Từ khóa if'],[0,1,3],'Rẽ nhánh'),F('Nếu x>0 in "Dương", ngược lại in "Không dương": if x>0: ... {0}: ...',[[['elif','else','for'],1]],'else'),T('Tình huống: điểm d=6.5. if d>=8: "Giỏi" elif d>=5: "Đạt" else: "Chưa đạt"',[['In ra "Đạt"',1],['In ra "Giỏi"',0],['Chỉ một nhánh được thực hiện',1],['elif chỉ xét khi điều kiện trước sai',1]],'elif')]},
+{id:20,n:'Câu lệnh lặp for',sim:'for',x:[{h:'for với range()',p:'<b>for i in range(a, b)</b> cho biến đếm i chạy a, a+1, …, <b>b−1</b> (không gồm b). Số vòng lặp = b − a. Mô phỏng: quan sát biến đếm i duyệt qua danh sách giá trị và biến s tích lũy.',c:'s = 0\nfor i in range(1, 6):\n    s = s + i\nprint(s)   # 15',q:O('range(1, 6) sinh ra các giá trị:',['1..6','1..5','0..5','2..6'],1,'range')}],
+ q:[O('for i in range(3) lặp mấy lần?',['2','3','4','0'],1,'range'),M('range(2, 8, 2) sinh ra giá trị nào?',['2','4','6','8'],[0,1,2],'range'),F('Vòng lặp duyệt i từ 1 đến 10: for i in range(1, {0}):',[[['10','11','9'],1]],'range'),T('Tình huống: s=0; for i in range(1,5): s+=i; print(s)',[['s cuối cùng bằng 10',1],['Vòng lặp chạy 4 lần',1],['i nhận giá trị 5',0],['s tích lũy tổng các i',1]],'Biến đếm')]},
+{id:21,n:'Câu lệnh lặp while',sim:'while',x:[{h:'while – lặp theo điều kiện',p:'<b>while điều kiện:</b> lặp khi điều kiện còn đúng. Phải <b>thay đổi biến</b> trong thân vòng lặp, nếu không sẽ lặp vô hạn. Dùng khi chưa biết trước số vòng lặp.',c:'i = 1\ns = 0\nwhile i <= 5:\n    s = s + i\n    i = i + 1\nprint(s)',q:O('Vòng while dừng khi:',['Điều kiện trở thành sai','Biến i bằng 0','Gặp lệnh print','Sau đúng 10 vòng'],0,'while')}],
+ q:[O('Quên lệnh i = i + 1 trong vòng while i<=5 sẽ:',['Chạy 1 lần','Lặp vô hạn','Báo lỗi cú pháp','Dừng ngay'],1,'while'),M('Nên dùng while khi:',['Chưa biết số vòng lặp','Lặp theo điều kiện','Luôn biết đúng 5 vòng','Chờ nhập đúng mật khẩu'],[0,1,3],'while'),F('while i<=3: print(i); i=i+1 in ra các số {0}.',[[['1 2 3','0 1 2','1 2 3 4'],0]],'while'),T('Tình huống: n=12; while n>=3: n=n-3',[['Vòng lặp chạy 4 lần',1],['n cuối cùng bằng 0',1],['Điều kiện được kiểm tra trước mỗi vòng',1],['Vòng lặp không bao giờ dừng',0]],'while')]},
+{id:22,n:'Kiểu dữ liệu danh sách',x:[{h:'Danh sách (list)',p:'List lưu nhiều phần tử trong <b>[ ]</b>, chỉ số bắt đầu từ <b>0</b>; <b>len(a)</b> cho số phần tử. Duyệt: <b>for x in a:</b>.',c:'a = [5, 8, 2]\nprint(a[0], len(a))   # 5 3\nfor x in a:\n    print(x)',q:O('a=[5,8,2]; a[1] bằng?',['5','8','2','1'],1,'Chỉ số')}],
+ q:[O('Phần tử đầu tiên của danh sách có chỉ số:',['1','0','-1','len(a)'],1,'Chỉ số'),M('Cách tạo danh sách hợp lệ:',['a = [1, 2]','a = []','a = (1, 2)[0]','a = list()'],[0,1,3],'Danh sách'),F('Số phần tử của danh sách a được tính bằng {0}.',[[['len(a)','sum(a)','a.len'],0]],'len'),T('Tình huống: d=[3,9,4]; for x in d: print(x)',[['In ra 3 dòng',1],['d[2] là 4',1],['d[3] là 4',0],['len(d) bằng 3',1]],'Duyệt list')]},
+{id:23,n:'Một số lệnh làm việc với danh sách',x:[{h:'append, insert, pop, remove, sort',p:'<b>a.append(x)</b> thêm cuối; <b>a.insert(i,x)</b> chèn; <b>a.pop(i)</b> xóa theo chỉ số; <b>a.remove(x)</b> xóa theo giá trị; <b>a.sort()</b> sắp xếp; <b>sum(a)</b> tổng.',c:'a = [4, 1]\na.append(9)\na.sort()\nprint(a)   # [1, 4, 9]',q:O('Thêm phần tử vào cuối danh sách dùng:',['a.add(x)','a.append(x)','a.push(x)','a.put(x)'],1,'append')}],
+ q:[O('a=[1,2,3]; a.pop(0) xóa phần tử:',['3','1','2','không xóa'],1,'pop'),M('Lệnh nào làm thay đổi danh sách a?',['a.append(1)','len(a)','a.sort()','sum(a)'],[0,2],'Lệnh list'),F('Xóa phần tử có giá trị 5 khỏi a: a.{0}(5).',[[['remove','pop','insert'],0]],'remove'),T('Tình huống: a=[3,1,2]; a.sort(); a.append(0)',[['Sau sort a là [1,2,3]',1],['Sau append a là [1,2,3,0]',1],['sum(a) bằng 6',1],['a có 5 phần tử',0]],'sort')]},
+{id:24,n:'Xâu ký tự',x:[{h:'Xâu (str)',p:'Xâu là dãy ký tự trong dấu nháy. Truy cập <b>s[i]</b> (từ 0), cắt <b>s[a:b]</b>, độ dài <b>len(s)</b>, nối bằng <b>+</b>. Xâu <b>không sửa được</b> từng ký tự.',c:'s = "Python"\nprint(s[0], s[1:4], len(s))   # P yth 6',q:O('s="Python"; s[1:4] là?',['Pyt','yth','ytho','tho'],1,'Cắt xâu')}],
+ q:[O('len("Tin hoc") bằng:',['6','7','8','5'],1,'len'),M('Phép nào hợp lệ với xâu s?',['s[0]','len(s)','s[0]="A"','s + "!"'],[0,1,3],'Xâu'),F('"Hà"+"Nội" cho kết quả {0}.',[[['HàNội','Hà Nội','Nội Hà'],0]],'Nối xâu'),T('Tình huống: s="LOP10"',[['s[0] là "L"',1],['s[-1] là "0"',1],['len(s) bằng 4',0],['s[1:3] là "OP"',1]],'Chỉ số xâu')]},
+{id:25,n:'Một số lệnh làm việc với xâu ký tự',x:[{h:'Các phương thức của xâu',p:'<b>upper()/lower()</b> đổi chữ hoa/thường; <b>strip()</b> bỏ khoảng trắng hai đầu; <b>split()</b> tách thành danh sách; <b>find()</b> tìm vị trí; <b>replace(a,b)</b> thay thế; <b>"-".join(a)</b> ghép.',c:'s = " an binh "\nprint(s.strip().upper())   # AN BINH\nprint("a b c".split())     # [\'a\', \'b\', \'c\']',q:O('"a b c".split() trả về:',['xâu "abc"','danh sách 3 xâu','số 3','lỗi'],1,'split')}],
+ q:[O('"abc".upper() cho:',['abc','ABC','Abc','aBC'],1,'upper'),M('Lệnh nào trả về danh sách?',['"a b".split()','"ab".upper()','"x,y".split(",")','len("ab")'],[0,2],'split'),F('Thay "a" bằng "o" trong s: s.{0}("a","o").',[[['find','replace','strip'],1]],'replace'),T('Tình huống: s="Hà Nội"',[['s.upper() là "HÀ NỘI"',1],['s.split() có 2 phần tử',1],['s.find("N") là 3',1],['s.strip() xóa mọi dấu cách',0]],'Phương thức xâu')]},
+{id:26,n:'Hàm trong Python',x:[{h:'def và return',p:'Hàm là đoạn lệnh được đặt tên để dùng lại. <b>def tên(tham số):</b>, kết quả trả về bằng <b>return</b>. Gọi hàm: <b>tên(đối số)</b>.',c:'def binh_phuong(x):\n    return x * x\nprint(binh_phuong(5))   # 25',q:O('Từ khóa để trả kết quả của hàm là:',['print','return','def','give'],1,'return')}],
+ q:[O('Từ khóa định nghĩa hàm là:',['func','def','function','fun'],1,'def'),M('Lợi ích của hàm:',['Tái sử dụng mã','Chia nhỏ chương trình','Luôn chạy nhanh hơn 10 lần','Dễ bảo trì'],[0,1,3],'Hàm'),F('def tong(a,b): {0} a+b',[[['print','return','input'],1]],'return'),T('Tình huống: def gap_doi(x): return 2*x',[['gap_doi(4) trả về 8',1],['x là tham số',1],['Hàm chạy khi vừa được định nghĩa',0],['Có thể gọi gap_doi nhiều lần',1]],'Hàm')]}
+];
+// ===== Mở rộng Bài 19 =====
+(()=>{const l=L.find(x=>x.id==19);
+l.x.push({h:'Dạng thiếu, dạng đủ và các phép so sánh',p:'<b>Dạng thiếu:</b> <code>if điều kiện:</code> – chỉ làm khi điều kiện đúng. <b>Dạng đủ:</b> thêm <code>else:</code> cho trường hợp ngược lại. Phép so sánh: <b>==, !=, &lt;, &gt;, &lt;=, &gt;=</b>. Kết quả so sánh là <b>True</b> hoặc <b>False</b>.',c:'a = int(input())\nif a > 0:\n    print("Số dương")\nprint("Kết thúc")   # luôn được thực hiện',q:O('Dòng print("Kết thúc") không thụt lề nên:',['Nằm ngoài if, luôn được thực hiện','Chỉ chạy khi a>0','Báo lỗi','Chỉ chạy khi a<=0'],0,'Thụt lề')});
+l.x.push({h:'Điều kiện ghép (and, or, not) và if – elif',p:'<b>and</b>: cả hai đúng; <b>or</b>: ít nhất một đúng; <b>not</b>: đảo giá trị. Nhiều trường hợp dùng <b>elif</b>. Ví dụ xếp loại điểm: kiểm tra từ cao xuống thấp.',c:'d = float(input())\nif d >= 8:\n    print("Giỏi")\nelif d >= 6.5:\n    print("Khá")\nelif d >= 5:\n    print("Đạt")\nelse:\n    print("Chưa đạt")',q:O('Điều kiện số n nằm trong khoảng 1 đến 9 là:',['n>=1 or n<=9','n>=1 and n<=9','n>1 not n<9','n=1 and n=9'],1,'and/or')});
+l.q.push(O('Dạng thiếu của lệnh if là dạng:',['Không có nhánh else','Không có điều kiện','Không có dấu :','Có hai else'],0,'Dạng if'),O('Phép so sánh khác nhau trong Python là:',['<>','!=','=!','not='],1,'So sánh'),O('Giá trị của 5>3 and 5<10 là:',['True','False','Lỗi','None'],0,'and/or'),O('Khối lệnh của if phải:',['Thụt lề cùng mức','Đặt cuối dòng','Đặt trong ngoặc','Không cần thụt lề'],0,'Thụt lề'),O('n=10; if n%2==0: print("A") else: print("B") in ra:',['A','B','AB','Không in'],0,'Rẽ nhánh'),O('Từ khóa gộp "else if" trong Python là:',['elseif','elif','else if','elsif'],1,'elif'),O('Giá trị của not (3>5) là:',['True','False','Lỗi','3'],0,'not'),O('Lệnh if x = 5: bị lỗi vì:',['Dùng = thay cho ==','Thiếu else','Thiếu print','x chưa có'],0,'So sánh'),
+M('Chọn các phép so sánh hợp lệ:',['==','!=','<=','='],[0,1,2],'So sánh'),M('Các biểu thức có giá trị True:',['4>3','2==3','5!=6','1>=2'],[0,2],'So sánh'),M('Các toán tử logic của Python:',['and','or','not','xor'],[0,1,2],'and/or'),
+F('Cả hai vế cùng đúng thì điều kiện đúng: dùng toán tử {0}.',[[['and','or','not'],0]],'and/or'),F('Cuối dòng điều kiện của if phải có dấu {0}',[[[':',';','.'],0]],'Cú pháp if'),F('if a>b: print(a) {0}: print(b)',[[['elif','else','while'],1]],'else'),
+T('Tình huống: t=17; if t>=18: print("Đủ tuổi") else: print("Chưa đủ tuổi")',[['In "Chưa đủ tuổi"',1],['t>=18 có giá trị False',1],['Cả hai nhánh cùng chạy',0],['Nếu t=18 sẽ in "Đủ tuổi"',1]],'Dạng đủ'),T('Tình huống: a=4; b=9; if a>b: m=a else: m=b',[['m bằng 9',1],['Đoạn lệnh tìm số lớn hơn',1],['a>b có giá trị True',0],['Nhánh else được thực hiện',1]],'Dạng đủ'))})();
+// ===== Mở rộng Bài 20 =====
+(()=>{const l=L.find(x=>x.id==20);
+l.x.push({h:'range(a, b, bước) và duyệt danh sách, xâu',p:'<b>range(b)</b>: 0…b−1; <b>range(a,b)</b>: a…b−1; <b>range(a,b,k)</b>: nhảy k đơn vị. Vòng for còn duyệt được <b>danh sách</b> và <b>xâu</b> từng phần tử/ký tự.',c:'for i in range(2, 11, 2):\n    print(i, end=" ")   # 2 4 6 8 10\nfor c in "abc":\n    print(c)',q:O('range(1, 10, 3) sinh ra:',['1 4 7','1 4 7 10','1 3 6 9','3 6 9'],0,'range')});
+l.x.push({h:'Thực hành: tổng, tích, đếm',p:'Dùng biến tích lũy: <b>tổng</b> bắt đầu từ 0, <b>tích</b> bắt đầu từ 1, <b>đếm</b> bắt đầu từ 0 và kết hợp if trong for.',c:'d = 0\nfor i in range(1, 11):\n    if i % 2 == 0:\n        d = d + 1\nprint(d)   # 5 số chẵn',q:O('Biến để tính tích tích lũy nên khởi tạo bằng:',['0','1','-1','10'],1,'Tích lũy')});
+l.q.push(O('range(5) sinh ra các giá trị:',['0 1 2 3 4','1 2 3 4 5','0 1 2 3 4 5','1 2 3 4'],0,'range'),O('range(2, 6) có bao nhiêu giá trị?',['3','4','5','6'],1,'range'),O('range(1, 10, 3) sinh ra:',['1 4 7','1 4 7 10','1 3 6 9','3 6 9'],0,'range'),O('for i in range(3): print("A") in ra bao nhiêu chữ A?',['2','3','4','1'],1,'Số vòng lặp'),O('for c in "abc": biến c nhận lần lượt:',['Từng ký tự a, b, c','Số 0,1,2','Cả xâu abc','Không nhận gì'],0,'Duyệt xâu'),O('range(a, b) với a<b lặp bao nhiêu lần?',['b-a','b-a+1','b','a'],0,'Số vòng lặp'),O('s=0; for i in range(1,4): s=s+i*i; s bằng:',['6','14','9','10'],1,'Tích lũy'),O('Giá trị của biến đếm i trong for do:',['Python tự gán lần lượt','Người dùng nhập','Luôn bằng 0','Gán bằng print'],0,'Biến đếm'),
+M('range(1, 7, 2) có các giá trị:',['1','3','5','7'],[0,1,2],'range'),M('Có thể duyệt bằng for:',['range(5)','[1, 2]','"abc"','123'],[0,1,2],'Duyệt'),M('Các vòng lặp chạy đúng 5 lần:',['range(5)','range(1,6)','range(0,6)','range(2,7)'],[0,1,3],'Số vòng lặp'),
+F('In số chẵn 2 đến 10: for i in range(2, {0}, 2):',[[['9','11','8'],1]],'range'),F('Lặp với số lần biết trước thường dùng {0}.',[[['for','while','if'],0]],'for'),F('p=1; for i in range(1,{0}): p=p*i  → p = 24 (4!).',[[['4','5','6'],1]],'Tích lũy'),
+T('Tình huống: n=5; for i in range(n): print(i)',[['In ra 0 đến 4',1],['In ra 5 dòng',1],['In ra số 5',0],['i bắt đầu từ 0',1]],'range'),T('Tình huống: d=0; for i in range(1,11): if i%2==0: d=d+1',[['d bằng 5',1],['i chạy từ 1 đến 10',1],['Lệnh if nằm trong vòng for',1],['d bằng 10',0]],'Đếm'))})();
+// ===== Trạng thái & lưu trữ =====
+const $=s=>document.querySelector(s),app=$('#app');let S=null,K='',db=null;
+const sh=a=>[...a].sort(()=>Math.random()-.5),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}if(db&&S)try{db.doc('hs/'+hash(K)).set({name:S.name,cls:S.cls,L:S.L,fin:S.fin||null,at:Date.now()}).catch(()=>{})}catch(e){}};
+const hash=s=>{let h=5381;for(const c of s)h=(h*33)^c.charCodeAt(0);return 'k'+(h>>>0)};
+const st=id=>S.L[id]||(S.L[id]={step:0,best:0,done:false,fb:[]});
+const pct=id=>{const l=L.find(x=>x.id==id),s=st(id);return Math.round(((Math.min(s.step,l.x.length)/l.x.length)*30+s.best*0.7))};
+const unlocked=i=>i==0||st(L[i-1].id).done;
+const allDone=()=>L.every(l=>st(l.id).done);
+// ===== Ngân hàng câu hỏi mở rộng: đủ 20 câu/bài (câu số liệu sinh ngẫu nhiên, đáp án tự tính) =====
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),Pk=a=>a[R(0,a.length-1)],N=v=>[v+1,v-1,v+2,v+10],J=a=>'['+a.join(', ')+']';
+const opts=(c,ws)=>{c=String(c);ws=[...new Set(ws.map(String))].filter(w=>w!==c);for(const e of['Báo lỗi','Không in gì','Không xác định'])if(ws.length<3&&!ws.includes(e))ws.push(e);const o=sh([c,...ws.slice(0,3)]);return[o,o.indexOf(c)]};
+const Z=(q,o,a,g)=>{if(Array.isArray(a))return M(q,o,a,g);const[p,i]=opts(o[a],o.filter((_,j)=>j!=a));return O(q,p,i,g)};
+L[0].q.push(Z('Ngôn ngữ lập trình bậc cao có đặc điểm nào?',['Gần ngôn ngữ tự nhiên, dễ đọc, dễ viết','Chỉ gồm các dãy 0 và 1','Chỉ chạy trên một loại máy','Không cần chương trình dịch'],0,'Ngôn ngữ bậc cao'),
+Z('Chương trình viết bằng ngôn ngữ bậc cao được gọi là:',['Mã nguồn (chương trình nguồn)','Mã máy','Phần cứng','Hệ điều hành'],0,'Mã nguồn'),
+Z('Phần mở rộng thường dùng của tệp chương trình Python là:',['.py','.exe','.doc','.pas'],0,'Python'),
+Z('Python là ngôn ngữ:',['Thông dịch, đa năng, cú pháp đơn giản','Chỉ dùng thiết kế đồ họa','Chỉ gồm ngôn ngữ máy','Chỉ chạy trên Windows'],0,'Python'),
+Z('Phần mềm nào thường dùng để soạn và chạy chương trình Python?',['IDLE','Paint','Excel','Media Player'],0,'Môi trường lập trình'),
+Z('Chế độ gõ lệnh và thực hiện ngay từng dòng trong IDLE gọi là:',['Chế độ tương tác (Shell)','Chế độ in','Chế độ nén','Chế độ ngủ'],0,'Môi trường lập trình'),
+Z('Lệnh print("Hello") có tác dụng:',['Hiển thị Hello ra màn hình','Nhập Hello từ bàn phím','Xóa màn hình','Tắt chương trình'],0,'Lệnh print'),
+Z('Ký tự dùng để viết ghi chú (chú thích) trong Python là:',['#','//','<!-- -->','--'],0,'Ghi chú'),
+Z('Lỗi cú pháp là lỗi:',['Viết sai quy tắc của ngôn ngữ','Do hỏng máy','Do mạng chậm','Do hết pin'],0,'Lỗi chương trình'),
+Z('Chương trình dịch có nhiệm vụ:',['Chuyển chương trình nguồn sang ngôn ngữ máy','Soạn thảo văn bản','Diệt virus','Sao lưu dữ liệu'],0,'Chương trình dịch'),
+Z('Chọn các ngôn ngữ lập trình bậc cao:',['Python','Java','Mã nhị phân','Pascal'],[0,1,3],'Ngôn ngữ bậc cao'),
+Z('Tên biến hợp lệ trong Python là:',['so_luong','2so','so luong','so-luong'],0,'Tên biến'),
+F('Lệnh {0} dùng để in dữ liệu ra màn hình trong Python.',[opts('print',['input','def','int'])],'Lệnh print'),
+Z('Ưu điểm của trình thông dịch là:',['Chạy thử và sửa lỗi từng lệnh dễ dàng','Chỉ tạo được tệp .exe','Không cần máy tính','Không phát hiện lỗi'],0,'Chương trình dịch'),
+T('Tình huống: Hà gõ print(2+3) trong IDLE Shell.',[['Kết quả hiển thị là 5',1],['IDLE thực hiện lệnh ngay sau khi nhấn Enter',1],['Hà đang viết bằng ngôn ngữ máy',0],['print là lệnh in ra màn hình',1]],'Môi trường lập trình'),
+T('Tình huống: Mai lưu chương trình thành baitap.py rồi chạy.',[['Tệp .py chứa mã nguồn Python',1],['Python dịch và chạy từng lệnh của tệp',1],['Tệp .py là ngôn ngữ máy',0],['Có thể sửa mã nguồn rồi chạy lại',1]],'Mã nguồn'));
+const A=()=>sh([1,2,3,4,5,6,7,8,9]).slice(0,R(3,4)),B=()=>Array.from({length:5},()=>R(1,9)),W=['PYTHON','TINHOC','LAPTRINH','HOCSINH','CHUONG'];
+const G={
+17:[[()=>{const a=R(10,60),b=R(2,9);return{c:`${a} // ${b}`,v:Math.floor(a/b),w:[a%b,Math.ceil(a/b),Math.floor(a/b)+2]}},()=>{const a=R(10,60),b=R(2,9);return{c:`${a} % ${b}`,v:a%b,w:[Math.floor(a/b),b,a%b+1]}},()=>{const e=R(2,3),s=R(2,5);return{c:`${s} ** ${e}`,v:s**e,w:[s*e,s+e,s**e+s]}},()=>{const a=R(10,60),b=R(2,9);return{c:`x = ${a}; x = x - ${b}; x * 2`,v:(a-b)*2}}],'Phép toán'],
+18:[[()=>{const a=R(2,9),b=R(2,9);return{c:`a = int(input()) nhập ${a}; print(a * ${b})`,v:a*b,w:[a+b,`${a}${b}`,a*b+1]}},()=>{const a=R(2,9),b=R(2,9);return{c:`a = input() nhập ${a}; b = input() nhập ${b}; print(a + b)`,v:`${a}${b}`,w:[a+b,a*b,`${a} ${b}`]}},()=>({c:'kiểu dữ liệu của x trong x = input()',v:'str',w:['int','float','bool']}),()=>{const a=R(2,9),b=R(2,9);return{c:`print(${a}, ${b})`,v:`${a} ${b}`,w:[`${a}${b}`,`${a},${b}`,a+b]}},()=>{const a=R(2,9);return{c:`x = float(input()) nhập ${a}; print(x)`,v:`${a}.0`,w:[a,`"${a}"`,`${a}.5`]}}],'Vào ra'],
+19:[[()=>{const n=R(1,30),t=R(5,20);return{c:`n = ${n}; if n >= ${t}: print("Đạt") else: print("Chưa")`,v:n>=t?'Đạt':'Chưa',w:['Đạt','Chưa','Đạt Chưa']}},()=>{const n=R(1,40);return{c:`n = ${n}; if n % 2 == 0: print("Chẵn") else: print("Lẻ")`,v:n%2?'Lẻ':'Chẵn',w:['Chẵn','Lẻ','Chẵn Lẻ']}},()=>{const d=R(0,10);return{c:`d = ${d}; if d >= 8: print("Giỏi") elif d >= 5: print("Đạt") else: print("Chưa đạt")`,v:d>=8?'Giỏi':d>=5?'Đạt':'Chưa đạt',w:['Giỏi','Đạt','Chưa đạt','Giỏi Đạt']}}],'Rẽ nhánh'],
+20:[[()=>{const a=R(1,5),b=R(a+2,a+9);return{c:`số vòng lặp của for i in range(${a}, ${b})`,v:b-a,w:[b-a+1,b-a-1,b]}},()=>{const a=R(1,5),b=R(a+2,a+9);return{c:`giá trị cuối của i trong for i in range(${a}, ${b})`,v:b-1,w:[b,b+1,b-2]}},()=>{const n=R(3,10);return{c:`s = 0; for i in range(1, ${n+1}): s = s + i; giá trị s`,v:n*(n+1)/2}},()=>{const a=R(1,5),b=R(a+3,a+9),t=R(2,3),r=[];for(let i=a;i<b;i+=t)r.push(i);return{c:`for i in range(${a}, ${b}, ${t}): print(i) — các số in ra`,v:r.join(' '),w:[[...r,r.at(-1)+t].join(' '),r.map(x=>x+1).join(' '),r.slice(1).join(' ')]}}],'Vòng lặp for'],
+21:[[()=>{const i=R(1,3),n=R(5,9);return{c:`i = ${i}; while i <= ${n}: i = i + 1 → số vòng lặp`,v:n-i+1}},()=>{const m=R(2,8);return{c:`n = ${m*3}; while n > 0: n = n - 3 → số vòng lặp`,v:m,w:[m+1,m-1,m*3]}},()=>{const m=R(3,8);return{c:`s = 0; i = 1; while i <= ${m}: s = s + i; i = i + 1 → giá trị s`,v:m*(m+1)/2}},()=>{const a=R(1,4),b=R(8,14);let i=a;while(i<b)i+=2;return{c:`i = ${a}; while i < ${b}: i = i + 2 → giá trị cuối của i`,v:i,w:[i+2,i-2,b]}}],'Vòng lặp while'],
+22:[[()=>{const a=B(),k=R(0,4);return{c:`a = ${J(a)}; a[${k}]`,v:a[k],w:a}},()=>{const a=B();return{c:`a = ${J(a)}; len(a)`,v:5,w:[4,6,a[0],a[4]]}},()=>{const a=B();return{c:`a = ${J(a)}; a[-1]`,v:a[4],w:a}},()=>{const a=B();return{c:`a = ${J(a)}; sum(a)`,v:a.reduce((x,y)=>x+y)}},()=>{const a=B();return{c:`a = ${J(a)}; max(a)`,v:Math.max(...a),w:a.concat(10)}}],'Danh sách'],
+23:[[()=>{const a=A(),x=R(10,20);return{c:`a = ${J(a)}; a.append(${x}); len(a)`,v:a.length+1}},()=>{const a=A(),x=R(10,20);return{c:`a = ${J(a)}; a.append(${x}); a`,v:J([...a,x]),w:[J([x,...a]),J(a),J([...a,x,x])]}},()=>{const a=A();return{c:`a = ${J(a)}; a.pop(); a`,v:J(a.slice(0,-1)),w:[J(a.slice(1)),J(a),J([...a].reverse())]}},()=>{const a=A(),s=[...a].sort((x,y)=>x-y);return{c:`a = ${J(a)}; a.sort(); a`,v:J(s),w:[J([...s].reverse()),J(a),J(s.slice(1))]}},()=>{const a=A(),x=R(10,20),b=[...a];b.splice(1,0,x);return{c:`a = ${J(a)}; a.insert(1, ${x}); a`,v:J(b),w:[J([...a,x]),J([x,...a]),J(a)]}},()=>{const a=A();return{c:`a = ${J(a)}; a.remove(${a[1]}); len(a)`,v:a.length-1}}],'Lệnh với danh sách'],
+24:[[()=>{const s=Pk(W),k=R(0,s.length-1);return{c:`s = "${s}"; s[${k}]`,v:s[k],w:[...s]}},()=>{const s=Pk(W);return{c:`s = "${s}"; s[-1]`,v:s.at(-1),w:[s[0],s[1],s[s.length-2]]}},()=>{const s=Pk(W);return{c:`s = "${s}"; len(s)`,v:s.length}},()=>{const s=Pk(W),a=R(0,2),b=R(a+2,a+4);return{c:`s = "${s}"; s[${a}:${b}]`,v:s.slice(a,b),w:[s.slice(a,b+1),s.slice(a+1,b+1),s.slice(a,b-1)]}},()=>{const s=Pk(W),t=Pk(W);return{c:`"${s}" + "${t}"`,v:s+t,w:[t+s,s+' '+t,s+'+'+t]}}],'Xâu ký tự'],
+25:[[()=>{const s=Pk(W);return{c:`"${s}".lower()`,v:s.toLowerCase(),w:[s,s[0]+s.slice(1).toLowerCase(),s+s.toLowerCase()]}},()=>{const s=Pk(W).toLowerCase();return{c:`"${s}".upper()`,v:s.toUpperCase(),w:[s,s[0].toUpperCase()+s.slice(1),s.toUpperCase()+s]}},()=>{const s=Pk(W),k=R(0,2),u=s.substr(k,2);return{c:`"${s}".find("${u}")`,v:s.indexOf(u)}},()=>{const s=Pk(W),h=s[R(0,s.length-1)];return{c:`"${s}".replace("${h}", "*")`,v:s.split(h).join('*'),w:[s.replace(h,'*'),s,'*'.repeat(s.length)]}},()=>{const n=R(2,5),s=Array.from({length:n},()=>Pk(['a','b','c','d'])).join(' ');return{c:`len("${s}".split())`,v:n,w:[n+1,n-1,s.length]}},()=>{const x=Pk(W),y=Pk(W);return{c:`"-".join(["${x}", "${y}"])`,v:x+'-'+y,w:[x+y,x+' '+y,y+'-'+x]}}],'Phương thức xâu'],
+26:[[()=>{const a=R(2,5),b=R(1,9),k=R(2,9);return{c:`def f(x): return ${a}*x+${b}; f(${k})`,v:a*k+b}},()=>{const a=R(2,5),b=R(1,9),k=R(2,9);return{c:`def g(x, y): return x - y; g(${k+a}, ${b})`,v:k+a-b}},()=>{const k=R(2,9);return{c:`def sq(x): return x * x; sq(${k})`,v:k*k,w:[k*2,k+k+1,k**3]}},()=>{const a=R(2,5),k=R(2,9);return{c:`def f(x): return x + ${a}; f(f(${k}))`,v:k+2*a}},()=>{const a=R(2,5),m=R(5,20);return{c:`def f(n): return n % ${a}; f(${m})`,v:m%a,w:[Math.floor(m/a),a,m]}}],'Hàm']};
+const cl=p=>(p.w=p.w||N(p.v),p),wr=p=>Pk([...new Set(p.w.map(String))].filter(x=>x!==String(p.v)).concat('Báo lỗi')),cm=(p,ok)=>[`${p.c} → ${ok?p.v:wr(p)}`,ok?1:0];
+function mkq(t,f,g){const p=cl(f()),cs=()=>[0,1,2,3].map(()=>cm(cl(f()),Math.random()<.5));
+ if(t=='f'){const[o,a]=opts(p.v,p.w);return F(`Cho: ${p.c}. Kết quả là {0}.`,[[o,a]],g)}
+ if(t=='t')return T('Tình huống: xét các phát biểu về kết quả của đoạn lệnh/biểu thức sau.',cs(),g);
+ if(t=='m'){const it=cs();if(!it.some(x=>x[1]))it[0]=cm(cl(f()),true);return M('Chọn tất cả phát biểu đúng:',it.map(x=>x[0]),it.flatMap((x,i)=>x[1]?[i]:[]),g)}
+ const[o,a]=opts(p.v,p.w);return O(`Cho: ${p.c}. Kết quả là?`,o,a,g)}
+const getQ=l=>[...l.q,...(G[l.id]?Array.from({length:20-l.q.length},(_,i)=>mkq('otfmootofm'[i%10],()=>Pk(G[l.id][0])(),G[l.id][1])):[])];
+// ===== Màn hình đăng nhập =====
+const CL=['10A1','10A2','10A3','10A4','10B1','10B2','10C1','10C2','10C3','10D1'];
+function login(){app.innerHTML=`<h1>Tin học 10 – Chủ đề F</h1><p class=m>Lập trình Python · tự học theo trình tự, lưu tiến độ</p>
+<div class=card><h2>Đăng nhập học tập</h2><p class=m>Gõ đúng họ và tên IN HOA, có dấu tiếng Việt (ví dụ: NGUYỄN VĂN AN). Lần sau nhập đúng như lần đầu để học tiếp.</p>
+<input type=text id=nm placeholder="HỌ VÀ TÊN"><p><select id=cl>${CL.map(c=>`<option>${c}</option>`).join('')}</select></p><p id=er class=no></p><button id=go>Bắt đầu học</button> <button class=g id=gv>Giáo viên theo dõi</button></div>`;
+$('#nm').oninput=e=>{e.target.value=e.target.value.toLocaleUpperCase('vi')};
+$('#go').onclick=()=>{const n=$('#nm').value.replace(/\s+/g,' ').trim();
+ if(n.split(' ').length<2||/\d/.test(n)||n!==n.toLocaleUpperCase('vi'))return $('#er').textContent='Vui lòng nhập đầy đủ họ và tên (ít nhất 2 từ, có dấu tiếng Việt, không có số).';
+ if(!/^[\p{L} ]+$/u.test(n))return $('#er').textContent='Họ tên chỉ gồm chữ cái.';
+ const c=$('#cl').value;K='tin10F:'+c+':'+n;let d=null;try{d=JSON.parse(localStorage.getItem(K))}catch(e){}
+ S=d||{name:n,cls:c,L:{}};save();home()};
+$('#gv').onclick=teacher}
+// ===== Trang chủ =====
+function home(){const tot=Math.round(L.reduce((a,l)=>a+pct(l.id),0)/L.length);
+app.innerHTML=`<h1>${esc(S.name)} – ${S.cls}</h1><div class=bar><i style="width:${tot}%"></i></div><p class=m>Tiến độ toàn khóa: ${tot}% · Qua bài khi đúng từ 80% câu hỏi</p>
+<div class=card>${L.map((l,i)=>{const s=st(l.id),u=unlocked(i);return `<div class=ls><div><b>Bài ${l.id}: ${l.n}</b><div class=m>${u?(s.done?'✔ Đạt – cao nhất '+s.best+'%':'Đang học'):'🔒 Hoàn thành bài trước (≥80%) để mở'} · ${pct(l.id)}%</div></div><button ${u?'':'disabled'} data-i=${i}>${s.done?'Học lại':s.step||s.best?'Tiếp tục':'Học'}</button></div>`}).join('')}
+<div class=ls><div><b>Bài kiểm tra cuối khóa</b><div class=m>${allDone()?'40 câu · 45 phút · làm nhiều lần'+(S.fin?` · cao nhất ${S.fin.best}%`:''):'🔒 Hoàn thành Bài 26'}</div></div><button id=fx ${allDone()?'':'disabled'}>Làm bài</button></div></div><button class=g id=out>Đăng xuất</button>`;
+document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>lesson(+b.dataset.i));$('#fx').onclick=final;$('#out').onclick=()=>{S=null;login()}}
+// ===== Hiển thị & chấm câu hỏi =====
+function qHTML(q,n){let h=`<div class=q data-n=${n}><b>${n+1}. ${esc(q.q.replace('{0}','＿＿'))}</b>`;
+ if(q.t=='o')h+=q.o.map((o,i)=>`<label><input type=radio name=r${n} value=${i}> ${'ABCD'[i]}. ${esc(o)}</label>`).join('');
+ if(q.t=='m')h+='<div class=m>Chọn tất cả đáp án đúng</div>'+q.o.map((o,i)=>`<label><input type=checkbox name=r${n} value=${i}> ${esc(o)}</label>`).join('');
+ if(q.t=='f')h+=q.s.map((s,j)=>`<p><select name=r${n}_${j}><option value="">-- chọn --</option>${s[0].map((o,i)=>`<option value=${i}>${esc(o)}</option>`).join('')}</select></p>`).join('');
+ if(q.t=='t')h+=q.s.map((s,j)=>`<div class=row><span style="flex:1">${'abcd'[j]}) ${esc(s[0])}</span><select name=r${n}_${j}><option value="">?</option><option value=1>Đúng</option><option value=0>Sai</option></select></div>`).join('');
+ return h+`<div class=fb></div></div>`}
+function grade(q,n,root){const v=k=>{const e=root.querySelector(`[name=${k}]`);return e&&e.value};let ok=false;
+ if(q.t=='o'){const c=root.querySelector(`[name=r${n}]:checked`);ok=c&&+c.value===q.a}
+ if(q.t=='m'){const c=[...root.querySelectorAll(`[name=r${n}]:checked`)].map(e=>+e.value).sort().join();ok=c===[...q.a].sort().join()}
+ if(q.t=='f')ok=q.s.every((s,j)=>v(`r${n}_${j}`)!==''&&+v(`r${n}_${j}`)===s[1]);
+ if(q.t=='t')ok=q.s.every((s,j)=>v(`r${n}_${j}`)!==''&&+v(`r${n}_${j}`)===s[1]);
+ return !!ok}
+// ===== Mô phỏng trực quan =====
+function frames(t,N){const f=[];
+ if(t=='if'){f.push({h:0,v:`n = ${N}`});const e=N%2==0;f.push({h:1,v:`n % 2 == 0 → ${e?'True':'False'}`});f.push({h:e?2:4,v:'Rẽ nhánh '+(e?'if':'else'),o:e?'Chẵn':'Lẻ'});return{L:['n = '+N,'if n % 2 == 0:','    print("Chẵn")','else:','    print("Lẻ")'],f}}
+ if(t=='for'){let s=0;f.push({h:0,v:'s = 0',c:-1});for(let i=1;i<=N;i++){f.push({h:1,v:`i = ${i}  (vòng ${i})`,c:i-1,s});s+=i;f.push({h:2,v:`i = ${i}, s = ${s}`,c:i-1})}f.push({h:3,v:`s = ${s}`,o:String(s),c:-1});return{L:['s = 0',`for i in range(1, ${N+1}):`,'    s = s + i','print(s)'],f}}
+ let i=1,s=0;f.push({h:0,v:'i = 1',c:0});f.push({h:1,v:'s = 0',c:0});for(;i<=N;){f.push({h:2,v:`i <= ${N} → True (i=${i})`,c:i-1});s+=i;f.push({h:3,v:`s = ${s}`,c:i-1});i++;f.push({h:4,v:`i = ${i}`,c:i-1})}
+ f.push({h:2,v:`i <= ${N} → False (i=${i}) → thoát vòng lặp`,c:-1});f.push({h:5,v:`s = ${s}`,o:String(s),c:-1});return{L:['i = 1','s = 0',`while i <= ${N}:`,'    s = s + i','    i = i + 1','print(s)'],f}}
+function sim(t,host){let k=0,N=t=='if'?7:5,D;
+ host.innerHTML=`<div class=sim><b>▶ Mô phỏng ${t=='if'?'rẽ nhánh if':t=='for'?'vòng lặp for':'vòng lặp while'}</b><p>${t=='if'?'Nhập n':'Nhập N (1–10)'}: <input type=number id=sn value=${N} style="width:80px"> <button id=nx>Bước tiếp</button> <button class=g id=rs>Làm lại</button></p><pre id=sc></pre><div id=sv></div><div class=m>Biến:</div><div id=sw class=out style="color:#fde68a"></div><div class=m>Kết quả chương trình:</div><div class=out id=so></div></div>`;
+ const draw=()=>{D=frames(t,N);const fr=D.f[Math.min(k,D.f.length)-1];
+  $('#sc').innerHTML=D.L.map((l,i)=>`<span class="${fr&&fr.h==i?'h':''}" style="display:block">${esc(l)||' '}</span>`).join('');
+  $('#sw').textContent=fr?fr.v:'(chưa chạy)';$('#so').textContent=fr&&fr.o?fr.o:(k>=D.f.length&&D.f[D.f.length-1].o)||'';
+  $('#sv').innerHTML=t=='if'?'':'<div class=m>Danh sách giá trị của biến đếm i (duyệt lần lượt):</div>'+Array.from({length:N},(_,i)=>`<span class="cell ${fr&&fr.c===i?'on':''}">${i+1}</span>`).join('');
+  $('#nx').disabled=k>=D.f.length};
+ $('#nx').onclick=()=>{if(k<D.f.length)k++;draw()};$('#rs').onclick=()=>{k=0;draw()};
+ $('#sn').onchange=e=>{N=Math.max(1,Math.min(t=='if'?999:10,+e.target.value||1));k=0;draw()};draw()}
+// ===== Bài học =====
+function lesson(i){const l=L[i],s=st(l.id);if(s.step<l.x.length)return step(i);quiz(i)}
+function step(i){const l=L[i],s=st(l.id),x=l.x[s.step];
+ app.innerHTML=`<button class=g id=bk>← Danh sách bài</button><h2>Bài ${l.id}: ${l.n}</h2><div class=bar><i style="width:${pct(l.id)}%"></i></div><p class=m>Nội dung ${s.step+1}/${l.x.length} · Tiến độ bài: ${pct(l.id)}%</p>
+<div class=card><h2>${x.h}</h2><p>${x.p}</p><pre>${esc(x.c)}</pre><div id=sm></div></div><div class=card><b>Kiểm tra nhanh – trả lời đúng để học tiếp</b>${qHTML(x.q,0)}<button id=ck>Kiểm tra</button> <button id=nt style="display:none">${s.step+1<l.x.length?'Nội dung tiếp theo':'Làm bài trắc nghiệm'}</button></div>`;
+ $('#bk').onclick=home;if(l.sim&&s.step==0)sim(l.sim,$('#sm'));
+ $('#ck').onclick=()=>{const ok=grade(x.q,0,app),f=app.querySelector('.fb');f.innerHTML=ok?'<span class=ok>✔ Chính xác!</span>':'<span class=no>✘ Chưa đúng, hãy đọc lại nội dung và thử lại.</span>';if(ok){$('#nt').style.display='';$('#ck').disabled=true}};
+ $('#nt').onclick=()=>{s.step++;save();lesson(i)}}
+// ===== Trắc nghiệm cuối bài =====
+function quiz(i,list,title,sec,done){const l=L[i],qs=list||sh(l.q);
+ app.innerHTML=`<button class=g id=bk>← Danh sách bài</button><h2>${title||`Trắc nghiệm Bài ${l.id}`}</h2><p class=m id=tm>${sec?'':'Cần đúng ≥ 80% để sang bài tiếp theo.'}</p><div class=card>${qs.map(qHTML).join('')}<button id=sb>Nộp bài</button></div>`;
+ $('#bk').onclick=()=>{clearInterval(window.tid);home()};
+ const submit=()=>{clearInterval(window.tid);const bad={};let c=0;qs.forEach((q,n)=>{const r=app.querySelector(`[data-n="${n}"]`),ok=grade(q,n,r);if(ok)c++;else bad[q.g]=1;r.querySelector('.fb').innerHTML=ok?'<span class=ok>✔ Đúng</span>':'<span class=no>✘ Sai</span>'});
+  const p=Math.round(c/qs.length*100);$('#sb').disabled=true;done(p,Object.keys(bad),c,qs.length)};
+ $('#sb').onclick=submit;return submit}
+function result(p,bad,c,n,pass,again){const box=document.createElement('div');box.className='card';
+ box.innerHTML=`<h2>Kết quả: ${c}/${n} câu đúng – ${p}%</h2><p class=${p>=pass?'ok':'no'}>${p>=pass?'✔ Đạt yêu cầu':'✘ Chưa đạt, cần ≥ '+pass+'%'}</p><p><b>Nhận xét:</b> ${bad.length?'kiến thức còn hạn chế ở: <b>'+bad.map(esc).join(', ')+'</b>. Hãy ôn lại phần này.':'em nắm vững toàn bộ kiến thức của bài. Rất tốt!'}</p><button id=hm>Về danh sách bài</button> <button class=g id=ag>Làm lại</button>`;
+ app.appendChild(box);box.scrollIntoView({behavior:'smooth'});$('#hm').onclick=home;$('#ag').onclick=again}
+quiz.l=0;
+const _q=quiz;quiz=function(i){const l=L[i],s=st(l.id);_q(i,null,null,0,(p,bad,c,n)=>{s.best=Math.max(s.best,p);s.fb=bad;if(p>=80)s.done=true;save();result(p,bad,c,n,80,()=>quiz(i))})};
+// ===== Kiểm tra cuối khóa =====
+function final(){const pool=sh(L.flatMap(l=>l.q)),qs=[];while(qs.length<40)qs.push(...pool.slice(0,40-qs.length));let left=45*60;
+ const sub=_q(0,qs,'Bài kiểm tra cuối khóa',1,(p,bad,c,n)=>{S.fin=S.fin||{best:0};S.fin.best=Math.max(S.fin.best,p);S.fin.last=p;save();result(p,bad,c,n,50,final)});
+ window.tid=setInterval(()=>{left--;$('#tm').textContent='⏱ Còn lại '+String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');if(left<=0){sub()}},1000)}
+// ===== Giáo viên theo dõi =====
+function teacher(){app.innerHTML=`<button class=g id=bk>← Quay lại</button><h2>Giáo viên theo dõi tiến độ</h2><div class=card id=tb>Đang tải…</div>`;$('#bk').onclick=login;
+ const show=rows=>{rows.sort((a,b)=>a.cls.localeCompare(b.cls)||a.name.localeCompare(b.name,'vi'));$('#tb').innerHTML=rows.length?`<div style="overflow-x:auto"><table><tr><th>Lớp</th><th>Họ tên</th>${L.map(l=>`<th>B${l.id}</th>`).join('')}<th>Cuối khóa</th></tr>${rows.map(r=>`<tr><td>${r.cls}</td><td>${esc(r.name)}</td>${L.map(l=>{const s=(r.L||{})[l.id];return `<td>${s?(s.done?'✔ ':'')+s.best+'%':'–'}</td>`}).join('')}<td>${r.fin?r.fin.best+'%':'–'}</td></tr>`).join('')}</table></div>`:'Chưa có dữ liệu.'};
+ if(db)db.collection('hs').get().then(s=>show(s.docs.map(d=>d.data()))).catch(()=>local());else local();
+ function local(){const r=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('tin10F:'))r.push(JSON.parse(localStorage.getItem(k)))}}catch(e){}show(r);$('#tb').insertAdjacentHTML('beforeend','<p class=m>Đang hiển thị dữ liệu lưu trên thiết bị này.</p>')}}
+login();
+try{if(window.claude)claude.use('db').then(d=>{db=d}).catch(()=>{})}catch(e){}
+</script></body></html>
